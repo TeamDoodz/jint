@@ -9,7 +9,7 @@ internal sealed class ReflectionDescriptor : PropertyDescriptor
 {
     private readonly Engine _engine;
     private readonly ReflectionAccessor _reflectionAccessor;
-    private readonly object _target;
+    private readonly object? _target;
     private readonly string _propertyName;
 
     private JsValue? _get;
@@ -18,7 +18,7 @@ internal sealed class ReflectionDescriptor : PropertyDescriptor
     public ReflectionDescriptor(
         Engine engine,
         ReflectionAccessor reflectionAccessor,
-        object target,
+        object? target,
         string propertyName,
         bool enumerable)
         : base((enumerable ? PropertyFlag.Enumerable : PropertyFlag.None) | PropertyFlag.CustomJsValue)

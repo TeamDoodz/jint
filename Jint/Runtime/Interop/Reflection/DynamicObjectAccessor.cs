@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Dynamic;
 using Jint.Native;
 
@@ -16,17 +17,21 @@ internal sealed class DynamicObjectAccessor : ReflectionAccessor
 
     public override bool Writable => true;
 
-    protected override object? DoGetValue(object target, string memberName)
+    protected override object? DoGetValue(object? target, string memberName)
     {
-        var dynamicObject = (DynamicObject) target;
+        Debug.Assert(target is not null);
+
+        var dynamicObject = (DynamicObject) target!;
         var getter = _getter ??= new JintGetMemberBinder(memberName, ignoreCase: true);
         dynamicObject.TryGetMember(getter, out var result);
         return result;
     }
 
-    protected override void DoSetValue(object target, string memberName, object? value)
+    protected override void DoSetValue(object? target, string memberName, object? value)
     {
-        var dynamicObject = (DynamicObject) target;
+        Debug.Assert(target is not null);
+
+        var dynamicObject = (DynamicObject) target!;
         var setter = _setter ??= new JintSetMemberBinder(memberName, ignoreCase: true);
         dynamicObject.TrySetMember(setter, value);
     }

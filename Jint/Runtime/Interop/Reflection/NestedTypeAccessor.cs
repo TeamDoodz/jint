@@ -13,11 +13,11 @@ internal sealed class NestedTypeAccessor : ReflectionAccessor
 
     public override bool Writable => false;
 
-    protected override object? DoGetValue(object target, string memberName) => null;
+    protected override object? DoGetValue(object? target, string memberName) => null;
 
-    protected override void DoSetValue(object target, string memberName, object? value) { }
+    protected override void DoSetValue(object? target, string memberName, object? value) { }
 
-    public override PropertyDescriptor CreatePropertyDescriptor(Engine engine, object target, string memberName, bool enumerable = true)
+    public override PropertyDescriptor CreatePropertyDescriptor(Engine engine, object? target, string memberName, bool enumerable = true)
     {
         return new(_typeReference, PropertyFlag.AllForbidden);
     }

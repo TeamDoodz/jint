@@ -18,12 +18,12 @@ internal sealed class PropertyAccessor : ReflectionAccessor
 
     public override bool Writable => _propertyInfo.CanWrite;
 
-    protected override object? DoGetValue(object target, string memberName)
+    protected override object? DoGetValue(object? target, string memberName)
     {
         return _propertyInfo.GetValue(target, index: null);
     }
 
-    protected override void DoSetValue(object target, string memberName, object? value)
+    protected override void DoSetValue(object? target, string memberName, object? value)
     {
         _propertyInfo.SetValue(target, value, index: null);
     }

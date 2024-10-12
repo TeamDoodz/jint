@@ -16,17 +16,17 @@ internal sealed class ConstantValueAccessor : ReflectionAccessor
 
     protected override JsValue? ConstantValue { get; }
 
-    protected override object? DoGetValue(object target, string memberName)
+    protected override object? DoGetValue(object? target, string memberName)
     {
         return ConstantValue;
     }
 
-    protected override void DoSetValue(object target, string memberName, object? value)
+    protected override void DoSetValue(object? target, string memberName, object? value)
     {
         throw new InvalidOperationException();
     }
 
-    public override PropertyDescriptor CreatePropertyDescriptor(Engine engine, object target, string memberName, bool enumerable = true)
+    public override PropertyDescriptor CreatePropertyDescriptor(Engine engine, object? target, string memberName, bool enumerable = true)
     {
         return ConstantValue is null
             ? PropertyDescriptor.Undefined

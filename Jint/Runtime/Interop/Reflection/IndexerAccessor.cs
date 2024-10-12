@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
@@ -28,6 +29,8 @@ internal sealed class IndexerAccessor : ReflectionAccessor
 
         _getter = indexer.GetGetMethod();
         _setter = indexer.GetSetMethod();
+
+        Debug.Assert(!(_getter is null && _setter is null));
     }
 
     internal PropertyInfo Indexer { get; }
@@ -177,7 +180,7 @@ internal sealed class IndexerAccessor : ReflectionAccessor
 
     public override bool Writable => Indexer.CanWrite;
 
-    protected override object? DoGetValue(object target, string memberName)
+    protected override object? DoGetValue(object? target, string memberName)
     {
         if (_getter is null)
         {
@@ -205,7 +208,7 @@ internal sealed class IndexerAccessor : ReflectionAccessor
         }
     }
 
-    protected override void DoSetValue(object target, string memberName, object? value)
+    protected override void DoSetValue(object? target, string memberName, object? value)
     {
         if (_setter is null)
         {
@@ -216,7 +219,7 @@ internal sealed class IndexerAccessor : ReflectionAccessor
         _setter.Invoke(target, parameters);
     }
 
-    public override PropertyDescriptor CreatePropertyDescriptor(Engine engine, object target, string memberName, bool enumerable = true)
+    public override PropertyDescriptor CreatePropertyDescriptor(Engine engine, object? target, string memberName, bool enumerable = true)
     {
         if (_containsKey != null)
         {

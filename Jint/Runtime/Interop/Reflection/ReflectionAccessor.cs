@@ -34,11 +34,11 @@ internal abstract class ReflectionAccessor
 
     public abstract bool Writable { get; }
 
-    protected abstract object? DoGetValue(object target, string memberName);
+    protected abstract object? DoGetValue(object? target, string memberName);
 
-    protected abstract void DoSetValue(object target, string memberName, object? value);
+    protected abstract void DoSetValue(object? target, string memberName, object? value);
 
-    public object? GetValue(Engine engine, object target, string memberName)
+    public object? GetValue(Engine engine, object? target, string memberName)
     {
         var constantValue = ConstantValue;
         if (constantValue is not null)
@@ -66,7 +66,7 @@ internal abstract class ReflectionAccessor
 
     protected virtual JsValue? ConstantValue => null;
 
-    private object? TryReadFromIndexer(object target, string memberName)
+    private object? TryReadFromIndexer(object? target, string memberName)
     {
         var getter = _indexer?.GetGetMethod();
         if (getter is null)
@@ -85,7 +85,7 @@ internal abstract class ReflectionAccessor
         }
     }
 
-    public void SetValue(Engine engine, object target, string memberName, JsValue value)
+    public void SetValue(Engine engine, object? target, string memberName, JsValue value)
     {
         object? converted;
         if (_memberType == typeof(JsValue))
@@ -118,7 +118,7 @@ internal abstract class ReflectionAccessor
         return engine.TypeConverter.Convert(value, memberType, CultureInfo.InvariantCulture);
     }
 
-    public virtual PropertyDescriptor CreatePropertyDescriptor(Engine engine, object target, string memberName, bool enumerable = true)
+    public virtual PropertyDescriptor CreatePropertyDescriptor(Engine engine, object? target, string memberName, bool enumerable = true)
     {
         return new ReflectionDescriptor(engine, this, target, memberName, enumerable);
     }

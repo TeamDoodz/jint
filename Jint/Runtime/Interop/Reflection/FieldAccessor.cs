@@ -14,12 +14,12 @@ internal sealed class FieldAccessor : ReflectionAccessor
 
     public override bool Writable => (_fieldInfo.Attributes & FieldAttributes.InitOnly) == (FieldAttributes) 0;
 
-    protected override object? DoGetValue(object target, string memberName)
+    protected override object? DoGetValue(object? target, string memberName)
     {
         return _fieldInfo.GetValue(target);
     }
 
-    protected override void DoSetValue(object target, string memberName, object? value)
+    protected override void DoSetValue(object? target, string memberName, object? value)
     {
         _fieldInfo.SetValue(target, value);
     }
