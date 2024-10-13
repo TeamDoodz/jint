@@ -1405,8 +1405,6 @@ public partial class InteropTests : IDisposable
 
         _engine.SetValue("o", o);
 
-        JsValue temp = _engine.Evaluate("o.Get");
-
         RunTest(@"
                 assert(o.Get == undefined);
             ");
