@@ -1399,6 +1399,20 @@ public partial class InteropTests : IDisposable
     }
 
     [Fact]
+    public void CantGetStaticFieldFromInstance()
+    {
+        var o = new ClassWithStaticFields();
+
+        _engine.SetValue("o", o);
+
+        JsValue temp = _engine.Evaluate("o.Get");
+
+        RunTest(@"
+                assert(o.Get == undefined);
+            ");
+    }
+
+    [Fact]
     public void CanSetStaticField()
     {
         RunTest(@"
