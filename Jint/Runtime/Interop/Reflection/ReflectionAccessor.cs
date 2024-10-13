@@ -34,12 +34,20 @@ internal abstract class ReflectionAccessor
 
     public abstract bool Writable { get; }
 
+    public abstract bool IsStatic { get; }
+
     protected abstract object? DoGetValue(object? target, string memberName);
 
     protected abstract void DoSetValue(object? target, string memberName, object? value);
 
     public object? GetValue(Engine engine, object? target, string memberName)
     {
+        if (target == null && !IsStatic)
+        {
+            ExceptionHelper.ThrowInvalidOperationException("Cannot access a non-static member with a null target.");
+            return null;
+        }
+
         var constantValue = ConstantValue;
         if (constantValue is not null)
         {
@@ -87,6 +95,12 @@ internal abstract class ReflectionAccessor
 
     public void SetValue(Engine engine, object? target, string memberName, JsValue value)
     {
+        if (target == null && !IsStatic)
+        {
+            ExceptionHelper.ThrowInvalidOperationException("Cannot access a non-static member with a null target.");
+            return;
+        }
+
         object? converted;
         if (_memberType == typeof(JsValue))
         {

@@ -14,6 +14,8 @@ internal sealed class FieldAccessor : ReflectionAccessor
 
     public override bool Writable => (_fieldInfo.Attributes & FieldAttributes.InitOnly) == (FieldAttributes) 0;
 
+    public override bool IsStatic => _fieldInfo.IsStatic;
+
     protected override object? DoGetValue(object? target, string memberName)
     {
         return _fieldInfo.GetValue(target);

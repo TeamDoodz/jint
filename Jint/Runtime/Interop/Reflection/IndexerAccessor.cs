@@ -180,6 +180,8 @@ internal sealed class IndexerAccessor : ReflectionAccessor
 
     public override bool Writable => Indexer.CanWrite;
 
+    public override bool IsStatic => (_getter ?? _setter)!.IsStatic;
+
     protected override object? DoGetValue(object? target, string memberName)
     {
         if (_getter is null)

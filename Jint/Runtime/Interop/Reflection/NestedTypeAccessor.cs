@@ -13,6 +13,8 @@ internal sealed class NestedTypeAccessor : ReflectionAccessor
 
     public override bool Writable => false;
 
+    public override bool IsStatic => true;
+
     protected override object? DoGetValue(object? target, string memberName) => null;
 
     protected override void DoSetValue(object? target, string memberName, object? value) { }

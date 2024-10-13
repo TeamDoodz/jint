@@ -368,6 +368,10 @@ public class ObjectWrapper : ObjectInstance, IObjectWrapper, IEquatable<ObjectWr
         {
             accessor = _engine.Options.Interop.TypeResolver.GetAccessor(_engine, Target.GetType(), member, mustBeReadable, mustBeWritable);
         }
+        if (accessor.IsStatic)
+        {
+            return PropertyDescriptor.Undefined;
+        }
         var descriptor = accessor.CreatePropertyDescriptor(_engine, Target, member, enumerable: !isDictionary);
         if (!isDictionary
             && !ReferenceEquals(descriptor, PropertyDescriptor.Undefined)

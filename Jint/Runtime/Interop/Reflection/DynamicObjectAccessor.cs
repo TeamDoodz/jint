@@ -17,6 +17,8 @@ internal sealed class DynamicObjectAccessor : ReflectionAccessor
 
     public override bool Writable => true;
 
+    public override bool IsStatic => false;
+
     protected override object? DoGetValue(object? target, string memberName)
     {
         Debug.Assert(target is not null);

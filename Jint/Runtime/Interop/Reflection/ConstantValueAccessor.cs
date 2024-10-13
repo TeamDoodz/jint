@@ -16,6 +16,8 @@ internal sealed class ConstantValueAccessor : ReflectionAccessor
 
     protected override JsValue? ConstantValue { get; }
 
+    public override bool IsStatic => true;
+
     protected override object? DoGetValue(object? target, string memberName)
     {
         return ConstantValue;
